@@ -1,0 +1,29 @@
+{
+  "name": "ride-dispatch",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.5"
+  },
+  "scripts": {
+    "dev": "concurrently -k -n api,worker,billing,ops,web -c blue,green,yellow,magenta,cyan \"npm:api\" \"npm:worker\" \"npm:billing\" \"npm:ops\" \"npm:web\"",
+    "api": "node --disable-warning=ExperimentalWarning server/api.js",
+    "worker": "node --disable-warning=ExperimentalWarning server/worker.js",
+    "billing": "node --disable-warning=ExperimentalWarning server/consumers/billing.js",
+    "ops": "node --disable-warning=ExperimentalWarning server/consumers/ops.js",
+    "load": "node --disable-warning=ExperimentalWarning server/loadtest.js",
+    "web": "vite web --host",
+    "build:web": "vite build web",
+    "reset": "rm -rf data"
+  },
+  "dependencies": {
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.3.0",
+    "concurrently": "^10.0.7",
+    "vite": "^8.3.8"
+  }
+}
